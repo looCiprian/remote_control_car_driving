@@ -16,6 +16,6 @@ In the same way it is possible to control other types of "cars" like rovers
 The first release was developed only to make a working project. Below a list of feautures to implement:
 - [ ] Implement checksum
 - [ ] Ensuring packet order
-- [ ] Implement remote telemetry
+- [x] Implement remote telemetry
 - [ ] Add GPS module (Buy me a GPS module
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/donate?hosted_button_id=8EWYXPED4ZU5E))
