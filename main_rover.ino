@@ -1,9 +1,9 @@
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
 #include <ArduinoJson.h>
+#include <WiFiManager.h>   
 
-const char* ssid = "ssid";
-const char* password = "password";
+WiFiManager wifiManager;
 
 WiFiUDP Udp;
 unsigned int localUdpPort = 4210;  // local port to listen on
@@ -18,13 +18,93 @@ int motorA2 = 15;
 int motorB1 = 12;
 int motorB2 = 14;
 
+#define LED_ON LOW
+#define LED_OFF HIGH
+
+
+// Counicate the last two digits of the ip using led --> 192.168.1.43 --> 1.43
+void comunicateIp(String ip) {
+
+  Serial.println("Printing ip using led");
+
+  // Splitting the ip by "."
+  int lenght = ip.length() + 1;
+  char ip_to_split[lenght];
+  ip.toCharArray(ip_to_split, lenght);
+
+  int i = 0;
+  char *p = strtok (ip_to_split, ".");
+  char *array[4];
+
+  while (p != NULL)
+  {
+    array[i++] = p;
+    p = strtok (NULL, ".");
+  }
+
+
+
+  // Blick fast --> start comunication
+  for (int j = 0 ; j < 20; j++) {
+    digitalWrite(LED_BUILTIN, LED_ON);
+    delay(100);
+    digitalWrite(LED_BUILTIN, LED_OFF);
+    delay(100);
+  }
+  delay(3000);
+
+  // Taking the last two numbers of the ip address --> 192.168.1.43 --> array[2] = 1 array[3] = 43
+
+  for (int j = 0; j < String(array[2]).length(); j++) {
+    //Needed for double numbers --> 1 --> blick 1 --> delay 3
+    for ( int k = 0; k < (int)array[2][j] - '0'; k++) {
+      digitalWrite(LED_BUILTIN, LED_ON);
+      delay(500);
+      digitalWrite(LED_BUILTIN, LED_OFF);
+      delay(500);
+    }
+    delay(1000);
+  }
+
+  // Blick fast 10 times --> emulating a .
+  for (int j = 0 ; j < 10; j++) {
+    digitalWrite(LED_BUILTIN, LED_ON);
+    delay(100);
+    digitalWrite(LED_BUILTIN, LED_OFF);
+    delay(100);
+  }
+  delay(2000);
+
+
+  for (int j = 0; j < String(array[3]).length(); j++) {
+    //Needed for double numbers --> 43 --> blick 4 --> delay --> delay 3
+    for ( int k = 0; k < (int)array[3][j] - '0'; k++) {
+      digitalWrite(LED_BUILTIN, LED_ON);
+      delay(500);
+      digitalWrite(LED_BUILTIN, LED_OFF);
+      delay(500);
+    }
+    delay(1000);
+  }
+
+  // Blick fast --> end comunication
+  for (int j = 0 ; j < 20; j++) {
+    digitalWrite(LED_BUILTIN, LED_ON);
+    delay(100);
+    digitalWrite(LED_BUILTIN, LED_OFF);
+    delay(100);
+  }
+  delay(3000);
+
+}
+
 void setup()
 {
+  
   Serial.begin(115200);
   Serial.println();
+  wifiManager.autoConnect("Wemos-Rover");
 
-  Serial.printf("Connecting to %s ", ssid);
-  WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED)
   {
     delay(500);
@@ -34,6 +114,10 @@ void setup()
 
   Udp.begin(localUdpPort);
   Serial.printf("Now listening at IP %s, UDP port %d\n", WiFi.localIP().toString().c_str(), localUdpPort);
+
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, LED_OFF);
+  comunicateIp(WiFi.localIP().toString());
 
   //Setting up motors
   pinMode(motorA1, OUTPUT); // Inizializzazione del pin direzione del motore collegato al canale A - D8 - motorA1

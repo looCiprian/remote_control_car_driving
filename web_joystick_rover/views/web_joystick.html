@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    
+    <title>
+        Joystick
+    </title>
+
+    <head>
+        <script src="./joy.js"></script> <!--https://github.com/bobboteck/JoyStick-->
+    </head>
+    
+    <style>
+        .float-left-child {
+        float: left;
+        }
+    </style>
+
+    <body>
+
+        <div class='parent'>
+            x
+            <div class='float-left-child' id="joyX" style="width:400px;height:400px;margin-bottom:20px;margin-top:20px;"></div>
+            y
+            <div class='float-left-child' id="joyY" style="width:400px;height:400px;margin-bottom:20px;margin-top:20px;"></div>
+          </div>
+    </body>
+
+
+    <script type="text/javascript">
+        // Create JoyStick object into the DIV 'joyDiv'
+        var joyX = new JoyStick('joyX');
+        var joyY = new JoyStick('joyY');
+        setInterval(
+            function(){
+                valueX=joyX.GetX();
+                valueY=joyY.GetY();
+                console.log("valueX: " + valueX);
+                console.log("valueY: " + valueY);
+                var oReq = new XMLHttpRequest();
+                oReq.open("GET", "http://127.0.0.1:3000/sendData?valueX=" + valueX + "&valueY=" + valueY);
+                oReq.send();},
+                10);
+    </script>
+
+</html>
+

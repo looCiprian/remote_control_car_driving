@@ -1,0 +1,20 @@
+doctype html
+htlm
+    head
+        title Joystick
+        script(src='joy.js') <!--https://github.com/bobboteck/JoyStick-->
+        script var ip = "#{ip}"
+        style
+            include style.css
+    body
+        div(class='float-left-child', id="joyX", style="width:400px;height:400px;margin-bottom:20px;margin-top:20px;")
+        div(class='float-left-child', id="joyY", style="width:400px;height:400px;margin-bottom:20px;margin-top:20px;")
+        
+    block settings
+    form(id="settings" action="/setIp" method="get")
+        input(type="text", name="wemos_ip", value="")
+        br
+        input(type="submit" value="Set ip")
+    script
+        include joystick_read.js
+        
