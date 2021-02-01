@@ -22,7 +22,7 @@ For the first use, Wemos will spawn a Wi-Fi network named "Wemos-rover". You nee
 $ joystick.py -l 
 ```
 
-3. Set event and wemos_ip and wemos_port
+3. Set event and wemos_ip ([Read how to get the ip without serial port](#Problem-solving-challenge)) and wemos_port
 ```bash
 $ joystick.py <input_event> <wemos_ip> <wemos_port>
 ```
@@ -41,7 +41,7 @@ $ node web_joystick.js
 
 3. Browse web interface on your ip:3000
 
-4. Set Wemos ip
+4. Set Wemos ip [Read how to get the ip without serial port](#Problem-solving-challenge)
 
 5. Have fun :)
 
@@ -53,15 +53,6 @@ $ node web_joystick.js
 In the same way it is possible to control other types of "cars" like rovers
 
 ![Rover](https://github.com/looCiprian/remote_control_car_driving/blob/main/doc/rover.gif?raw=true)
-
-# TODO List
-The first release was developed only to make a working project. Below a list of feautures to implement:
-- [ ] Implement checksum
-- [ ] Ensuring packet order
-- [x] Add Wi-Fi manager library
-- [x] Implement remote telemetry
-- [ ] Add GPS module (Buy me a GPS module
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/donate?hosted_button_id=8EWYXPED4ZU5E))
 
 # Problem solving challenge
 ## The problem
@@ -91,9 +82,18 @@ IP=192.168.1.43
 6. Led blinks very quickly for 20 times (to comunicate the end)
 
 ## Demo
-Comunicating 192.168.1.25
+IP: 192.168.1.25
 
 ![Rover_ip](https://github.com/looCiprian/remote_control_car_driving/blob/main/doc/rover_ip.gif?raw=true)
+
+# TODO List
+The first release was developed only to make a working project. Below a list of feautures to implement:
+- [ ] Implement checksum
+- [ ] Ensuring packet order
+- [x] Add Wi-Fi manager library
+- [x] Implement remote telemetry
+- [ ] Add GPS module (Buy me a GPS module
+[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/donate?hosted_button_id=8EWYXPED4ZU5E))
 
 # Release history
 
